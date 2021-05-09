@@ -16,7 +16,7 @@ $statement->bindParam(':id', $_GET['id']);
 $statement->execute();
 $user = $statement->fetch(PDO::FETCH_NAMED);
 
-var_dump($user);
+echo json_encode($user);
 
 } catch(PDOException $e) {
   echo $sql . "<br>" . $e->getMessage();

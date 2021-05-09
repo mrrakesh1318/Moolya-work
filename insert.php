@@ -1,3 +1,21 @@
+<style>
+  .alert {
+    padding: 1rem;
+    border: 1px solid black;
+    border-radius: 4px;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  div {
+    width: 50%;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  p {
+    margin: 8px 0;
+  }
+</style>
+
 <?php
 $servername = "remotemysql.com";
 $username = "xTU08uuu2F";
@@ -32,7 +50,7 @@ feedback VARCHAR(100))";
 
   // use exec() because no results are returned
 $conn->exec($sql);
-echo "Table USERINFO created successfully";
+
 } catch(PDOException $e) {
   echo $sql . "<br>" . $e->getMessage();
 }
@@ -58,20 +76,27 @@ try {
   $stmt->bindParam(':feedback', $feedback);
 
   $stmt->execute();
+  $last_id =$conn->lastInsertId();
+  //echo $last_id;
+  echo "<div class='alert'>New records added successfully</div>";
+  #header("Location: info.php?id=".$last_id);
 
-  echo "New records added successfully";
+  $stmt = $conn->prepare("SELECT id, name, email, contact, gender, feedback FROM USERINFO WHERE id='$last_id'");
+  $stmt->execute();
+  $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
 } catch(PDOException $e) {
   echo "Error: " . $e->getMessage();
 }
 
 $conn = null;
 ?>
-<!-- <?php
 
-$selected = $_POST['gender'];
-echo $_POST["name"]."<br>";
-echo $_POST["email"]."<br>";
-echo $_POST["contact"]."<br>";
-echo $selected."<br>";
-echo $_POST["feedback"]."<br>";
-?> -->
+
+<div>
+  <p><?php echo $result['name']; ?></p>
+  <p><?php echo $result['email']; ?></p>
+  <p><?php echo $result['contact']; ?></p>
+  <p><?php echo $result['gender']; ?></p>
+  <p><?php echo $result['feedback']; ?></p>
+</div>

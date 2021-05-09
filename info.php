@@ -1,30 +1,23 @@
-<html>
-<body>
+<?php 
 
-<?php $selected = $_POST['gender']; ?>
+$servername = "remotemysql.com";
+$username = "xTU08uuu2F";
+$password = "OWj6leo64z";
 
-<form action="insert.php" method="post">
-Name: <input type="text" name="name" value="<?php echo $_POST["name"]; ?>"/><br>
-E-mail: <input type="text" name="email" value="<?php echo $_POST["email"]; ?>"><br>
-Contact: <input type="number" name="contact" value="<?php echo $_POST["contact"]; ?>"><br>
-Gender: <select name="gender">
-	<option value="" <?php echo $selected == "" ? "selected": "";  ?> >
-	Select
-</option>
-	<option value="Male" <?php echo $selected == "Male" ? "selected": "";  ?>>
-	Male
-</option>
-	<option value="Female" <?php echo $selected == "Female" ? "selected": "";  ?>>
-	Female
-</option>
-	<option value="Other" <?php echo $selected == "Other" ? "selected": "";  ?>>
-	Other
-</option>
-</select><br>
-Feedback: <textarea name="feedback"><?php echo $_POST["feedback"]; ?></textarea><br>
+$dbname ="xTU08uuu2F";
+try {
+  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+  // set the PDO error mode to exception
+  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+// sql to create table
+$statement = $conn->prepare("SELECT * FROM USERINFO WHERE id = :id");
+$statement->bindParam(':id', $_GET['id']);
+  // use exec() because no results are returned
+$statement->execute();
+$user = $statement->fetch(PDO::FETCH_NAMED);
 
-<input type="submit" name="Confirm">
-</form>
-<button onclick="window.history.back()">Edit</button>
-</body>
-</html>
+var_dump($user);
+
+} catch(PDOException $e) {
+  echo $sql . "<br>" . $e->getMessage();
+}

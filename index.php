@@ -1,4 +1,4 @@
-<?php ?>
+
 
 <html>
 <head>
@@ -57,6 +57,31 @@
 </div>
 <input type="submit" value="submit">
 </form>
+
+
+<!-- <?php
+
+$servername = "remotemysql.com";
+$username = "xTU08uuu2F";
+$password = "OWj6leo64z";
+
+$dbname ="xTU08uuu2F";
+try {
+  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+
+  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	$statement = $conn->prepare("SELECT * FROM USERINFO");
+
+$statement->execute();
+$users = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+
+
+} catch(PDOException $e) {
+  echo "<br>" . $e->getMessage();
+}
+
+?> -->
 
 </body>
 </html>

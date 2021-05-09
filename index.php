@@ -4,6 +4,9 @@
 <head>
 	<title>Registration</title>
 	<style>
+		h1 {
+			text-align: center;
+		}
 		form {
 			width: 50%;
 			margin: 2rem auto;

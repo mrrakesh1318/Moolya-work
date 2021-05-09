@@ -16,6 +16,8 @@ $statement->bindParam(':id', $_GET['id']);
 $statement->execute();
 $user = $statement->fetch(PDO::FETCH_NAMED);
 
+header("Content-Type: application/json");
+header("HTTP_ACCEPT: application/json");
 echo json_encode($user);
 
 } catch(PDOException $e) {
